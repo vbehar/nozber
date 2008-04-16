@@ -3,5 +3,5 @@
 require 'rubygems'
 #require 'nozber'
 require File.dirname(__FILE__) + '/../lib/nozber'
-Nozber::CLI.execute
+Nozber.start
 

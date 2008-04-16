@@ -9,3 +9,8 @@ It uses nozbe-ruby to talk with the Nozbe API.
 To run the specs, see the README in the spec dir.
 To install as a gem, see the INSTALL file.
 
+
+Dependencies :
+- nozbe-ruby
+- simpleconsole
+
