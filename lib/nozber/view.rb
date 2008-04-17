@@ -6,12 +6,36 @@ module Nozber
     def help
       puts "Welcome to nozber - the command line interface to Nozbe"
       puts "Available commands :"
-      puts " - help : show this message"
-      puts " - login --email YOUR_EMAIL --password YOUR_PASSWORD : login into your account and store login data"
-      puts " - logout : remove all stored login-related data"
-      puts " - list_projects : list of all your projects"
-      puts " - list_contexts : list of all your contexts"
-      puts " - next_actions : list of all your next actions"
+      puts [
+        ' -',
+        just('help', 50),
+        just('show this message', 60)
+      ].join(" ")
+      puts [
+        ' -',
+        just('login --email YOUR_EMAIL --password YOUR_PASSWORD', 50),
+        just('log into your NOZBE account and store login data on disk', 60)
+      ].join(" ")
+      puts [
+        ' -',
+        just('logout', 50),
+        just('remove all stored login-related data from disk', 60)
+      ].join(" ")
+      puts [
+        ' -',
+        just('list_projects', 50),
+        just('list all your projects', 60)
+      ].join(" ")
+      puts [
+        ' -',
+        just('list_contexts', 50),
+        just('list all your contexts', 60)
+      ].join(" ")
+      puts [
+        ' -',
+        just('next_actions', 50),
+        just('list all your next actions', 60)
+      ].join(" ")
       puts ""
       if @user
         if @user.logged_in?
