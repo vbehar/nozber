@@ -82,6 +82,11 @@ module Nozber
       puts "Successfully logged out..."
     end
     
+    def method_error
+      puts "Sorry, this command does not exist..."
+      puts "Run the 'nozber help' command to see all available commands"
+    end
+    
     def params_error
       puts "It seems that you made an error with the params..."
       puts "Run the 'nozber help' command to see the synthax"

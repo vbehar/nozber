@@ -1,7 +1,7 @@
 module Nozber
     
   class Controller < SimpleConsole::Controller
-    before_filter :ensure_login, :except => [:default, :help, :login, :logout]
+    before_filter :ensure_login, :except => [:default, :help, :login, :logout, :method_missing]
     
     params :string => {
       :email => :email, :password => :password,
@@ -28,6 +28,9 @@ module Nozber
     def logout
       Nozber::Config.remove_config_file
     end
+    
+    def params_error
+    end
   
     def list_projects
       @projects = Nozbe::Project.list(@user.key)
@@ -53,7 +56,7 @@ module Nozber
     end
     
     def new_project
-      render :action => :params_error unless params[:name] and params[:body]
+      redirect_to :action => :params_error unless params[:name] and params[:body]
       @project = Nozbe::Project.new
       @project.name = params[:name]
       @project.body = params[:body]
@@ -69,6 +72,10 @@ module Nozber
     def ensure_login
       load_user
       redirect_to :action => :login if @user.nil? or !@user.logged_in?
+    end
+    
+    def method_missing(symbol)
+      Nozber::View.new(self).method_error
     end
     
   end
