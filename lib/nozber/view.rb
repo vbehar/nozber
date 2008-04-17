@@ -68,6 +68,7 @@ module Nozber
     end
   
     def list_projects
+      puts "#{@projects.size} projects :"
       puts [
         just('Name', 20),
         just('Body', 80)
@@ -81,6 +82,7 @@ module Nozber
     end
   
     def list_contexts
+      puts "#{@contexts.size} contexts :"
       puts [
         just('Name', 20),
         just('Body', 80)
@@ -93,21 +95,22 @@ module Nozber
       end
     end
     
-    def next_actions
+    def list_actions
+      puts "#{@actions.size} actions :"
       puts [
         ' ',
         ' ',
-        just('Name', 50),
+        just('Name', 60),
         just('Project', 20),
         just('Context', 20)
       ].join(" ")
-      @next_actions.each do |c|
+      @actions.each do |a|
         puts [
-          c.done ? '!' : ' ',
-          c.next ? '*' : ' ',
-          just(c.name, 50),
-          just(c.project.name, 20),
-          just(c.context.name, 20)
+          a.done ? '!' : ' ',
+          a.next ? '*' : ' ',
+          just(a.name, 60),
+          just(a.project.name, 20),
+          just(a.context.name, 20)
         ].join(" ")
       end
     end

@@ -33,8 +33,15 @@ module Nozber
       @contexts.each{|c| c.load_info(@user.key) }
     end
     
+    def list_actions
+      @actions = Nozbe::Project.list(@user.key).inject([]) { |all_actions, project|
+        all_actions + project.get_actions(@user.key)
+      }
+    end
+    
     def next_actions
-      @next_actions = Nozbe::Action.list_next(@user.key)
+      @actions = Nozbe::Action.list_next(@user.key)
+      render :action => :list_actions
     end
     
     private
