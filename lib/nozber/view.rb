@@ -33,8 +33,23 @@ module Nozber
       ].join(" ")
       puts [
         ' -',
+        just('list_actions', 50),
+        just('list all your actions', 60)
+      ].join(" ")
+      puts [
+        ' -',
         just('next_actions', 50),
         just('list all your next actions', 60)
+      ].join(" ")
+      puts [
+        ' -',
+        just('list_notes', 50),
+        just('list all your notes', 60)
+      ].join(" ")
+      puts [
+        ' -',
+        just('new_project -n "PROJECT_NAME" -b "PROJECT_BODY"', 50),
+        just('create a new project with given name and body', 60)
       ].join(" ")
       puts ""
       if @user
@@ -65,6 +80,11 @@ module Nozber
     
     def logout
       puts "Successfully logged out..."
+    end
+    
+    def params_error
+      puts "It seems that you made an error with the params..."
+      puts "Run the 'nozber help' command to see the synthax"
     end
   
     def list_projects
@@ -101,6 +121,7 @@ module Nozber
         ' ',
         ' ',
         just('Name', 60),
+        just('Time', 5),
         just('Project', 20),
         just('Context', 20)
       ].join(" ")
@@ -109,9 +130,38 @@ module Nozber
           a.done ? '!' : ' ',
           a.next ? '*' : ' ',
           just(a.name, 60),
+          just(a.time, 5),
           just(a.project.name, 20),
           just(a.context.name, 20)
         ].join(" ")
+      end
+      puts ""
+      puts "Legend: ! done, * next"
+    end
+    
+    def list_notes
+      puts "#{@notes.size} notes :"
+      puts [
+        just('Name', 60),
+        just('Date', 10),
+        just('Project', 20),
+        just('Context', 20)
+      ].join(" ")
+      @notes.each do |n|
+        puts [
+          just(n.name, 60),
+          just(n.date, 10),
+          just(n.project.name, 20),
+          just(n.context.name, 20)
+        ].join(" ")
+      end
+    end
+    
+    def new_project
+      if @project.id
+        puts "Project '#{@project.name}' successfully created (with ID #{@project.id})"
+      else
+        puts "Unable to save your new project"
       end
     end
     

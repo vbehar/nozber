@@ -1,16 +1,22 @@
 module Nozber
     
   class Controller < SimpleConsole::Controller
-    before_filter :load_user, :only => [:default, :help]
     before_filter :ensure_login, :except => [:default, :help, :login, :logout]
     
-    params :string => {:n => :name, :email => :email, :password => :password}
+    params :string => {
+      :email => :email, :password => :password,
+      :n => :name
+    }
+    params :text => {
+      :b => :body
+    }
   
     def default
       redirect_to :action => :help
     end
     
     def help
+      load_user
     end
     
     def login
@@ -35,13 +41,27 @@ module Nozber
     
     def list_actions
       @actions = Nozbe::Project.list(@user.key).inject([]) { |all_actions, project|
-        all_actions + project.get_actions(@user.key)
+        all_actions + project.get_actions(@user.key, true)
       }
     end
     
     def next_actions
       @actions = Nozbe::Action.list_next(@user.key)
       render :action => :list_actions
+    end
+    
+    def list_notes
+      @notes = Nozbe::Project.list(@user.key).inject([]) { |all_notes, project|
+        all_notes + project.get_notes(@user.key)
+      }
+    end
+    
+    def new_project
+      render :action => :params_error unless params[:name] and params[:body]
+      @project = Nozbe::Project.new
+      @project.name = params[:name]
+      @project.body = params[:body]
+      @project.save!(@user.key)
     end
     
     private
