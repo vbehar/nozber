@@ -40,9 +40,7 @@ module Nozber
     end
     
     def list_actions
-      @actions = Nozbe::Project.list(@user.key).inject([]) { |all_actions, project|
-        all_actions + project.get_actions(@user.key, true)
-      }
+      @actions = Nozbe::Action.list(@user.key, true)
     end
     
     def next_actions
@@ -51,9 +49,7 @@ module Nozber
     end
     
     def list_notes
-      @notes = Nozbe::Project.list(@user.key).inject([]) { |all_notes, project|
-        all_notes + project.get_notes(@user.key)
-      }
+      @notes = Nozbe::Note.list(@user.key)
     end
     
     def new_project
