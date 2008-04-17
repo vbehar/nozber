@@ -13,5 +13,11 @@ module Nozber
       end
     end
     
+    def alinea(value, size, fill = ' ')
+      ret = ''
+      size.times { |i| ret += fill }
+      ret + value
+    end
+    
   end
 end

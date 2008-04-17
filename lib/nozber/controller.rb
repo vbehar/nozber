@@ -5,7 +5,7 @@ module Nozber
     
     params :string => {
       :email => :email, :password => :password,
-      :n => :name
+      :n => :name, :p => :project_name, :c => :context_name
     }
     params :text => {
       :b => :body
@@ -61,6 +61,16 @@ module Nozber
       @project.name = params[:name]
       @project.body = params[:body]
       @project.save!(@user.key)
+    end
+    
+    def new_note
+      redirect_to :action => :params_error unless params[:name] and params[:body]
+      @note = Nozbe::Note.new
+      @note.name = params[:name]
+      @note.body = params[:body]
+      @note.project = Nozbe::Project.get_from_name(@user.key, params[:project_name])
+      @note.context = Nozbe::Context.get_from_name(@user.key, params[:context_name])
+      @note.save!(@user.key)
     end
     
     private

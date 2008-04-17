@@ -6,51 +6,26 @@ module Nozber
     def help
       puts "Welcome to nozber - the command line interface to Nozbe"
       puts "Available commands :"
-      puts [
-        ' -',
-        just('help', 50),
-        just('show this message', 60)
-      ].join(" ")
-      puts [
-        ' -',
-        just('login --email YOUR_EMAIL --password YOUR_PASSWORD', 50),
-        just('log into your NOZBE account and store login data on disk', 60)
-      ].join(" ")
-      puts [
-        ' -',
-        just('logout', 50),
-        just('remove all stored login-related data from disk', 60)
-      ].join(" ")
-      puts [
-        ' -',
-        just('list_projects', 50),
-        just('list all your projects', 60)
-      ].join(" ")
-      puts [
-        ' -',
-        just('list_contexts', 50),
-        just('list all your contexts', 60)
-      ].join(" ")
-      puts [
-        ' -',
-        just('list_actions', 50),
-        just('list all your actions', 60)
-      ].join(" ")
-      puts [
-        ' -',
-        just('next_actions', 50),
-        just('list all your next actions', 60)
-      ].join(" ")
-      puts [
-        ' -',
-        just('list_notes', 50),
-        just('list all your notes', 60)
-      ].join(" ")
-      puts [
-        ' -',
-        just('new_project -n "PROJECT_NAME" -b "PROJECT_BODY"', 50),
-        just('create a new project with given name and body', 60)
-      ].join(" ")
+      puts " - help"
+      puts alinea("show this message", 10)
+      puts " - login --email YOUR_EMAIL --password YOUR_PASSWORD"
+      puts alinea("log into your NOZBE account and store login data on disk", 10)
+      puts " - logout"
+      puts alinea("remove all stored login-related data from disk", 10)
+      puts " - list_projects"
+      puts alinea("list all your projects", 10)
+      puts " - list_contexts"
+      puts alinea("list all your contexts", 10)
+      puts " - list_actions"
+      puts alinea("list all your actions", 10)
+      puts " - next_actions"
+      puts alinea("list all your next actions", 10)
+      puts " - list_notes"
+      puts alinea("list all your notes", 10)
+      puts " - new_project -n \"NAME\" -b \"BODY\""
+      puts alinea("create a new project with given name and body", 10)
+      puts " - new_note -n \"NAME\" -b \"BODY\" [-p \"PROJECT_NAME\"] [-c \"CONTEXT_NAME\"]"
+      puts alinea("create a new note with given name/body, and optionnal existant project/context name", 10)
       puts ""
       if @user
         if @user.logged_in?
@@ -167,6 +142,17 @@ module Nozber
         puts "Project '#{@project.name}' successfully created (with ID #{@project.id})"
       else
         puts "Unable to save your new project"
+      end
+    end
+    
+    def new_note
+      if @note.id
+        puts "Note '#{@note.name}' successfully created (with ID #{@note.id})"
+        puts "Body : #{@note.body}"
+        puts "Project : #{@note.project.name}"
+        puts "Context : #{@note.context.name}"
+      else
+        puts "Unable to save your new note"
       end
     end
     
