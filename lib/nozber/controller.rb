@@ -21,9 +21,7 @@ module Nozber
     end
     
     def login
-      if params[:email] and params[:password]
-        @user = Nozber::Config.new().new_user(params[:email], params[:password])
-      end
+      @user = Nozber::Config.new().new_user(params[:email], params[:password]) if params[:email] and params[:password]
     end
     
     def logout
@@ -58,20 +56,12 @@ module Nozber
     
     def new_project
       redirect_to :action => :params_error unless params[:name] and params[:body]
-      @project = Nozbe::Project.new
-      @project.name = params[:name]
-      @project.body = params[:body]
-      @project.save!(@user.key)
+      @project = create_new_project(@user.key, params[:name], params[:body])
     end
     
     def new_note
       redirect_to :action => :params_error unless params[:name] and params[:body]
-      @note = Nozbe::Note.new
-      @note.name = params[:name]
-      @note.body = params[:body]
-      @note.project = get_project_from_name(@user.key, params[:project_name])
-      @note.context = get_context_from_name(@user.key, params[:context_name])
-      @note.save!(@user.key)
+      @note = create_new_note(@user.key, params[:name], params[:body], params[:project_name], params[:context_name])
     end
     
     private
