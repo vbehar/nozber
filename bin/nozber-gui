@@ -1,6 +1,11 @@
 #!/usr/bin/env ruby
 
 require 'rubygems'
+
+# FIXME change for prod
 #require 'nozber'
+#require 'nozber/gui'
 require File.dirname(__FILE__) + '/../lib/nozber'
+require File.dirname(__FILE__) + '/../lib/nozber/gui'
+
 Nozber::GUI.start

@@ -1,7 +1,11 @@
+require 'gtk2'
+
 module Nozber
   module GUI
     def self.start
-      puts "working on it !"
+      window = Gtk::Window.new
+      window.show
+      Gtk.main
     end
   end
 end
