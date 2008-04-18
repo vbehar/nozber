@@ -1,6 +1,7 @@
 module Nozber
     
   class Controller < SimpleConsole::Controller
+    include Nozber::NozbeHelper
     before_filter :ensure_login, :except => [:default, :help, :login, :logout, :method_missing]
     
     params :string => {
@@ -68,8 +69,8 @@ module Nozber
       @note = Nozbe::Note.new
       @note.name = params[:name]
       @note.body = params[:body]
-      @note.project = Nozbe::Project.get_from_name(@user.key, params[:project_name])
-      @note.context = Nozbe::Context.get_from_name(@user.key, params[:context_name])
+      @note.project = get_project_from_name(@user.key, params[:project_name])
+      @note.context = get_context_from_name(@user.key, params[:context_name])
       @note.save!(@user.key)
     end
     

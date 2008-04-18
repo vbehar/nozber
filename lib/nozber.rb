@@ -4,7 +4,7 @@ $:.unshift(File.dirname(__FILE__)) unless $:.include?(File.dirname(__FILE__)) ||
 require 'simpleconsole'
 require 'nozbe'
 
-%w(config controller view_helper view).each do |dep|
+%w(nozbe_helper config controller view_helper view).each do |dep|
   require "nozber/#{dep}"
 end
 
