@@ -17,6 +17,16 @@ module Nozber
       note.save!(user_key)
     end
     
+    def create_new_action(user_key, action_name, action_time = 0, action_next = false, project_name = nil, context_name = nil)
+      action = Nozbe::Action.new
+      action.name = action_name
+      action.time = action_time
+      action.next = action_next
+      action.project = get_project_from_name(user_key, project_name)
+      action.context = get_context_from_name(user_key, context_name)
+      action.save!(user_key)
+    end
+    
     def get_project_from_name(user_key, project_name = nil)
       project = Nozbe::Project.get_from_name(user_key, project_name) unless project_name.nil?
       if project.nil?

@@ -11,6 +11,12 @@ module Nozber
     params :text => {
       :b => :body
     }
+    params :int => {
+      :t => :time
+    }
+    params :bool => {
+      :next => :next
+    }
   
     def default
       redirect_to :action => :help
@@ -62,6 +68,11 @@ module Nozber
     def new_note
       redirect_to :action => :params_error unless params[:name] and params[:body]
       @note = create_new_note(@user.key, params[:name], params[:body], params[:project_name], params[:context_name])
+    end
+    
+    def new_action
+      redirect_to :action => :params_error unless params[:name] and params[:time]
+      @action = create_new_action(@user.key, params[:name], params[:time], params[:next], params[:project_name], params[:context_name])
     end
     
     private

@@ -26,6 +26,8 @@ module Nozber
       puts alinea("create a new project with given name and body", 10)
       puts " - new_note -n \"NAME\" -b \"BODY\" [-p \"PROJECT_NAME\"] [-c \"CONTEXT_NAME\"]"
       puts alinea("create a new note with given name/body, and optionnal existant project/context name", 10)
+      puts " - new_action -n \"NAME\" -t TIME [--next] [-p \"PROJECT_NAME\"] [-c \"CONTEXT_NAME\"]"
+      puts alinea("create a new action with given name/time(in min), and optionnal next-flag, existant project/context name", 10)
       puts ""
       if @user
         if @user.logged_in?
@@ -153,6 +155,18 @@ module Nozber
         puts "Context : #{@note.context.name}"
       else
         puts "Unable to save your new note"
+      end
+    end
+    
+    def new_action
+      if @action.id
+        puts "Action '#{@action.name}' successfully created (with ID #{@action.id})"
+        puts "Time : #{@action.time} minutes"
+        puts "Project : #{@action.project.name}"
+        puts "Context : #{@action.context.name}"
+        puts "This is your next action !" if @action.next
+      else
+        puts "Unable to save your new action"
       end
     end
     
