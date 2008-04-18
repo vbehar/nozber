@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+#require 'nozber'
+require File.dirname(__FILE__) + '/../lib/nozber'
+Nozber::CLI.start
